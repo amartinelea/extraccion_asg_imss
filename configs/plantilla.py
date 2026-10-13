@@ -30,6 +30,16 @@ SECTOR_1 = False                  # división, 1 posición: 0..9        p. ej. [
 SECTOR_2 = False                  # grupo, 2 posiciones               p. ej. [38]
 SECTOR_4 = False                  # fracción, 4 posiciones            p. ej. [3803, 3809]
 # (FRACCIONES = [...] también funciona como sinónimo de SECTOR_4)
+#
+# Cada fila del ASG viene a nivel fracción y trae sus claves de grupo y división, así
+# que SECTOR_2 = [38] se queda con todas las fracciones 38xx.
+
+# Nivel al que se suman los paneles (lo que significa "SECTOR" más abajo):
+#   "auto"     = el nivel más fino que tenga filtro (SECTOR_2 = [38] -> suma a grupo 38;
+#                SECTOR_4 = [...] -> fracción; sin filtros de actividad -> fracción)
+#   "SECTOR_1" | "SECTOR_2" | "SECTOR_4" para forzarlo
+#   p. ej. SECTOR_4 = [3803, 3809] con NIVEL_SECTOR = "SECTOR_2" -> una sola serie del 38
+NIVEL_SECTOR = "auto"
 
 # Geografía
 ENTIDADES = False                 # p. ej. [11, 14] Guanajuato y Jalisco
@@ -57,21 +67,21 @@ ETIQUETAS = None
 
 # ------------------------------------------------------------------------------
 # PANEL AGREGADO (asg_{NOMBRE}_mensual.parquet)
-# Se puede usar el nombre del parámetro ("SECTOR_4", "ENTIDADES") o la columna del
-# ASG ("sector_economico_4", "cve_entidad"). Si incluyes "masa_sal_ta" y "ta",
-# agrega salario_diario_prom = masa_sal_ta / ta.
+# "SECTOR" = el nivel de NIVEL_SECTOR. También se puede poner un nivel fijo
+# ("SECTOR_2"), otro parámetro ("ENTIDADES") o la columna del ASG ("cve_entidad").
+# Si incluyes "masa_sal_ta" y "ta", agrega salario_diario_prom = masa_sal_ta / ta.
 # ------------------------------------------------------------------------------
-AGREGAR_POR = ["fecha", "SECTOR_4", "ENTIDADES", "SEXO"]
+AGREGAR_POR = ["fecha", "SECTOR", "ENTIDADES", "SEXO"]
 METRICAS_PANEL = ["asegurados", "ta", "tpu", "teu", "tec", "tpc", "masa_sal_ta", "masa_sal_tpu"]
 
 # ------------------------------------------------------------------------------
 # PANEL DE OCUPADOS (panel_ocupados.py): fecha x clave, sumando PANEL_METRICA.
-# PANEL_CLAVE:   "SECTOR_1", "SECTOR_2", "SECTOR_4", "grupo" (si hay ETIQUETAS),
-#                "ENTIDADES", etc.
+# PANEL_CLAVE:   "SECTOR" (nivel de NIVEL_SECTOR), "SECTOR_1", "SECTOR_2", "SECTOR_4",
+#                "grupo" (si hay ETIQUETAS), "ENTIDADES", etc.
 # PANEL_POR:     desagregaciones extra, p. ej. ["ENTIDADES"] o ["SEXO"]; [] = nacional
 # PANEL_METRICA: "ta" (puestos de trabajo afiliados) o "asegurados", "tpu", "teu", ...
 # ------------------------------------------------------------------------------
-PANEL_CLAVE = "SECTOR_4"
+PANEL_CLAVE = "SECTOR"
 PANEL_POR = []
 PANEL_METRICA = "ta"
 

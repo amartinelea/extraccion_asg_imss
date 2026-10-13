@@ -51,8 +51,9 @@ def main():
     args = ap.parse_args()
 
     cfg = cargar_config(args.config)
-    clave = columna(args.clave) if args.clave else cfg["PANEL_CLAVE"]
-    por = [columna(c) for c in args.por] if args.por is not None else list(cfg["PANEL_POR"])
+    nivel = cfg["NIVEL_SECTOR"]
+    clave = columna(args.clave, nivel) if args.clave else cfg["PANEL_CLAVE"]
+    por = [columna(c, nivel) for c in args.por] if args.por is not None else list(cfg["PANEL_POR"])
     metrica = args.metrica or cfg["PANEL_METRICA"]
 
     carpeta = Path(cfg["CARPETA_SALIDA"]).expanduser()

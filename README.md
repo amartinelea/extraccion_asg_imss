@@ -28,6 +28,7 @@ Todo vive en el archivo de `configs/`:
 | `FECHA_INI`, `FECHA_FIN` | Periodo; `FECHA_FIN = None` es el último mes cerrado |
 | `SECTOR_1`, `SECTOR_2`, `SECTOR_4` | Actividad económica: vector de claves o `False` |
 | `ENTIDADES`, `MUNICIPIOS`, `SEXO`, `TAMANO_PATRON`, `RANGO_EDAD`, … | Otros filtros: vector o `False` |
+| `NIVEL_SECTOR` | Nivel al que se suman los paneles: `"auto"`, `"SECTOR_1"`, `"SECTOR_2"` o `"SECTOR_4"` |
 | `ETIQUETAS` | Opcional; crea la columna `grupo` agrupando claves |
 | `AGREGAR_POR`, `METRICAS_PANEL` | Cómo se arma el panel agregado |
 | `PANEL_CLAVE`, `PANEL_POR`, `PANEL_METRICA` | Panel de ocupados |
@@ -48,6 +49,23 @@ Niveles de actividad del catálogo IMSS (no tiene nivel de 3 posiciones):
 * `SECTOR_1`: división (1 posición)
 * `SECTOR_2`: grupo (2 posiciones, p. ej. 38)
 * `SECTOR_4`: fracción (4 posiciones, p. ej. 3803)
+
+**Agregación automática por nivel.** Cada fila del ASG viene a nivel fracción y trae
+sus claves de grupo y división, así que `SECTOR_2 = [38]` se queda con todas las
+fracciones 38xx. Con `NIVEL_SECTOR = "auto"` (default), los paneles se suman al nivel
+más fino que tenga filtro:
+
+| Configuración | Panel |
+|---|---|
+| `SECTOR_2 = [38]` | una serie: grupo 38 (suma de todas sus fracciones) |
+| `SECTOR_2 = [37, 38]` | dos series: 37 y 38 |
+| `SECTOR_1 = [3]` | una serie: división 3 |
+| `SECTOR_4 = [3803, 3809]` | dos series: 3803 y 3809 |
+| `SECTOR_4 = [3803, 3809]` y `NIVEL_SECTOR = "SECTOR_2"` | una serie: 38 (solo esas dos fracciones) |
+| sin filtros de actividad | por fracción |
+
+En `AGREGAR_POR` y `PANEL_CLAVE`, `"SECTOR"` significa "el nivel de `NIVEL_SECTOR`".
+El archivo de detalle siempre queda a nivel fracción.
 
 Si pones `SECTOR_2` y `SECTOR_4` a la vez, el script avisa qué fracciones no caen en
 los grupos pedidos (quedarían fuera). En `ETIQUETAS`, `AGREGAR_POR` y `PANEL_*` puedes
@@ -76,7 +94,8 @@ aparece con 0.
 
 * Por default, "ocupados" es `ta`, los puestos de trabajo afiliados (la cifra de
   empleo formal que publica el IMSS). Se cambia con `PANEL_METRICA` o `--metrica`.
-* La clave se define con `PANEL_CLAVE` o `--clave`: `SECTOR_1`, `SECTOR_2`, `SECTOR_4`,
+* La clave se define con `PANEL_CLAVE` o `--clave`: `SECTOR` (default, el nivel de
+  `NIVEL_SECTOR`), `SECTOR_1`, `SECTOR_2`, `SECTOR_4`,
   `grupo` (si hay `ETIQUETAS`), `ENTIDADES`, etc.
 * Desagregaciones extra con `PANEL_POR` o `--por` (p. ej. `--por ENTIDADES SEXO`).
 

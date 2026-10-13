@@ -61,9 +61,31 @@ ALIAS_COLUMNA = {**{k.lower(): v for k, v in PARAMETROS_FILTRO.items()},
                  "municipio": "cve_municipio"}
 
 
-def columna(nombre):
-    """'SECTOR_4', 'sector_4' o 'sector_economico_4' -> 'sector_economico_4'."""
-    return ALIAS_COLUMNA.get(str(nombre).strip().lower(), nombre)
+NIVELES_SECTOR = ["sector_economico_4", "sector_economico_2", "sector_economico_1"]  # fino -> grueso
+
+
+def columna(nombre, nivel_sector=None):
+    """'SECTOR_4', 'sector_4' o 'sector_economico_4' -> 'sector_economico_4'.
+    'SECTOR' (sin número) -> el nivel de agregación de actividad de la extracción."""
+    n = str(nombre).strip().lower()
+    if n == "sector":
+        if nivel_sector is None:
+            sys.exit("'SECTOR' necesita una configuración cargada para saber el nivel.")
+        return nivel_sector
+    return ALIAS_COLUMNA.get(n, nombre)
+
+
+def resolver_nivel(nivel, filtros):
+    """NIVEL_SECTOR = 'auto' -> el nivel más fino que tenga filtro; si no hay, fracción."""
+    if str(nivel).strip().lower() != "auto":
+        col = columna(nivel)
+        if col not in NIVELES_SECTOR:
+            sys.exit(f"NIVEL_SECTOR debe ser 'auto', 'SECTOR_1', 'SECTOR_2' o 'SECTOR_4' (no {nivel}).")
+        return col
+    for col in NIVELES_SECTOR:
+        if col in filtros:
+            return col
+    return "sector_economico_4"
 
 
 DEFAULTS = dict(
@@ -76,10 +98,11 @@ DEFAULTS = dict(
         "SUBDELEGACIONES", "SEXO", "TAMANO_PATRON", "RANGO_EDAD", "RANGO_SALARIAL",
         "RANGO_UMA", "PLATAFORMA_DIGITAL"]},
     ETIQUETAS=None,
-    AGREGAR_POR=["fecha"],
+    NIVEL_SECTOR="auto",
+    AGREGAR_POR=["fecha", "SECTOR"],
     METRICAS_PANEL=["asegurados", "ta", "tpu", "teu", "masa_sal_ta"],
     CARPETA_SALIDA="data",
-    PANEL_CLAVE="sector_economico_4",   # para panel_ocupados.py
+    PANEL_CLAVE="SECTOR",               # para panel_ocupados.py
     PANEL_POR=[],
     PANEL_METRICA="ta",
     N_HILOS=4,
@@ -131,10 +154,12 @@ def cargar_config(ruta):
         if fuera:
             print(f"AVISO: estas fracciones no están en SECTOR_2 {s2} y quedarán fuera: {fuera}")
 
-    # Nombres cortos -> columnas
-    cfg["AGREGAR_POR"] = [columna(c) for c in cfg["AGREGAR_POR"]]
-    cfg["PANEL_CLAVE"] = columna(cfg["PANEL_CLAVE"])
-    cfg["PANEL_POR"] = [columna(c) for c in cfg["PANEL_POR"]]
+    # Nivel de agregación de actividad y nombres cortos -> columnas
+    nivel = resolver_nivel(cfg["NIVEL_SECTOR"], filtros)
+    cfg["NIVEL_SECTOR"] = nivel
+    cfg["AGREGAR_POR"] = [columna(c, nivel) for c in cfg["AGREGAR_POR"]]
+    cfg["PANEL_CLAVE"] = columna(cfg["PANEL_CLAVE"], nivel)
+    cfg["PANEL_POR"] = [columna(c, nivel) for c in cfg["PANEL_POR"]]
 
     et = cfg["ETIQUETAS"]
     if et:
@@ -315,6 +340,7 @@ def main():
         fechas = fechas_corte(cfg["FECHA_INI"], cfg["FECHA_FIN"])
         print(f"[{cfg['NOMBRE']}] {len(fechas)} meses, {cfg['N_HILOS']} descargas simultáneas")
         print(f"  filtros: {cfg['FILTROS'] or 'ninguno'}")
+        print(f"  nivel de agregación de actividad: {cfg['NIVEL_SECTOR']}")
         no_disp = []
         with tempfile.TemporaryDirectory(prefix="asg_crudos_") as tmpdir, \
              ThreadPoolExecutor(max_workers=cfg["N_HILOS"]) as ex:
