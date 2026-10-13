@@ -112,6 +112,23 @@ asg_{NOMBRE}_ocupados_{clave}.csv        lo mismo en CSV
 asg_{NOMBRE}_ocupados_{clave}_ancho.csv  una columna por clave
 ```
 
+## Prueba
+
+`correr_test.py` corre los dos scripts con `configs/autopartes_test.py` (fracciones de
+autopartes, solo 2026) y valida las salidas: meses sin huecos, solo las fracciones
+pedidas, etiquetas, que los totales del detalle, del panel agregado y del panel de
+ocupados coincidan, panel balanceado y descripciones completas.
+
+```bash
+python correr_test.py
+python correr_test.py --comparar ~/Desktop/ATDT/proyecto_autopartes/input/raw/asg   # contra lo ya bajado
+python correr_test.py --limpiar                                                     # desde cero
+```
+
+Termina con `TODO BIEN` o con el número de validaciones que fallaron. Los meses que el
+IMSS aún no publica salen como aviso, no como falla. La variable de entorno
+`ASG_BASE_URL` permite apuntar la descarga a otro servidor.
+
 ## Cómo funciona
 
 * Cada CSV mensual (cientos de MB) se baja a una carpeta temporal, se filtra con polars

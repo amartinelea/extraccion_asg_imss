@@ -16,6 +16,7 @@ import argparse
 import calendar
 import importlib.util
 import json
+import os
 import sys
 import tempfile
 import time
@@ -27,7 +28,8 @@ from pathlib import Path
 
 import polars as pl
 
-BASE_URL = "http://datos.imss.gob.mx/sites/default/files/asg-{}.csv"
+# La variable de entorno ASG_BASE_URL permite apuntar a otro servidor (pruebas)
+BASE_URL = os.environ.get("ASG_BASE_URL", "http://datos.imss.gob.mx/sites/default/files/asg-{}.csv")
 
 # Columnas del layout IMSS (nombres normalizados: minúsculas, "tamaño" -> "tamano")
 DIMENSIONES = ["cve_delegacion", "cve_subdelegacion", "cve_entidad", "cve_municipio",
