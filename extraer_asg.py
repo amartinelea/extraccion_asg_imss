@@ -190,7 +190,7 @@ def cargar_config(ruta=None):
 
     if mod is not None and hasattr(mod, "FILTROS"):
         sys.exit("FILTROS ya no se usa: pon cada filtro como variable (SECTOR_4 = [...], "
-                 "ENTIDADES = False, etc.). Ver configs/plantilla.py.")
+                 "ENTIDADES = False, etc.). Ver el bloque PARÁMETROS de extraer_asg.py.")
     if mod is not None and hasattr(mod, "FRACCIONES"):   # alias cómodo de SECTOR_4
         if getattr(mod, "SECTOR_4", False) is not False:
             sys.exit("Usa FRACCIONES o SECTOR_4, no ambos.")
