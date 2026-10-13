@@ -1,10 +1,12 @@
 # ==============================================================================
 # Panel de personas ocupadas por clave, a partir de una extracción de ASG
 #
-# Uso (después de correr extraer_asg.py con la misma configuración):
-#   python panel_ocupados.py configs/autopartes.py
-#   python panel_ocupados.py configs/autopartes.py --clave sector_2 --por entidades
-#   python panel_ocupados.py configs/autopartes.py --metrica asegurados
+# Toma los PARÁMETROS del inicio de extraer_asg.py (corre ese script primero).
+# Uso:
+#   python panel_ocupados.py
+#   python panel_ocupados.py --clave SECTOR_2 --por ENTIDADES
+#   python panel_ocupados.py --metrica asegurados
+#   python panel_ocupados.py configs/otro.py      con un archivo de configs/
 #
 # "Ocupados" = puestos de trabajo afiliados (ta) por default, la cifra de empleo
 # formal que reporta el IMSS. Con --metrica se puede usar asegurados, tpu, teu, etc.
@@ -24,7 +26,7 @@ import polars as pl
 
 RAIZ = Path(__file__).resolve().parent
 sys.path.insert(0, str(RAIZ))
-from extraer_asg import cargar_config, columna  # noqa: E402
+from extraer_asg import cargar_config, columna, ruta_salida  # noqa: E402
 CAT_ACTIVIDADES = RAIZ / "catalogos" / "actividades_imss.csv"
 CAT_ENTIDADES = RAIZ / "catalogos" / "entidades_imss.csv"
 
@@ -44,7 +46,8 @@ def descripciones(clave):
 
 def main():
     ap = argparse.ArgumentParser(description="Panel de personas ocupadas por clave (ASG IMSS).")
-    ap.add_argument("config", help="archivo de configuración, p. ej. configs/autopartes.py")
+    ap.add_argument("config", nargs="?", default=None,
+                    help="opcional: archivo de configs/; sin él usa los PARÁMETROS de extraer_asg.py")
     ap.add_argument("--clave", help="variable que define la clave (default: PANEL_CLAVE del config)")
     ap.add_argument("--por", nargs="*", help="desagregaciones extra, p. ej. cve_entidad sexo")
     ap.add_argument("--metrica", help="métrica a sumar (default: PANEL_METRICA del config, 'ta')")
@@ -56,10 +59,10 @@ def main():
     por = [columna(c, nivel) for c in args.por] if args.por is not None else list(cfg["PANEL_POR"])
     metrica = args.metrica or cfg["PANEL_METRICA"]
 
-    carpeta = Path(cfg["CARPETA_SALIDA"]).expanduser()
+    carpeta = ruta_salida(cfg)
     ruta_det = carpeta / f"asg_{cfg['NOMBRE']}_detalle.parquet"
     if not ruta_det.exists():
-        sys.exit(f"No existe {ruta_det}. Corre antes: python extraer_asg.py {args.config}")
+        sys.exit(f"No existe {ruta_det}. Corre antes: python extraer_asg.py {args.config or ''}")
 
     det = pl.scan_parquet(ruta_det)
     cols = det.collect_schema().names()

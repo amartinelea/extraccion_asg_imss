@@ -2,15 +2,83 @@
 # Extracción de ASG (asegurados IMSS, datos abiertos) con filtros configurables
 #
 # Uso:
-#   python extraer_asg.py configs/autopartes.py            descarga, filtra y agrega
-#   python extraer_asg.py configs/autopartes.py --solo-unir  solo rearma detalle y panel
+#   1. Edita el bloque PARÁMETROS de abajo (sectores, fracciones, fechas, etc.)
+#   2. python extraer_asg.py                 descarga, filtra y agrega
+#      python extraer_asg.py --solo-unir     solo rearma detalle y panel con lo ya bajado
+#   3. python panel_ocupados.py              panel de personas ocupadas por clave
 #
-# Toda la configuración (fechas, filtros, etiquetas, agregación, carpeta de salida)
-# vive en el archivo de configs/. Ver configs/plantilla.py.
+# Opcional: python extraer_asg.py configs/otro.py  usa los parámetros de ese archivo
+# en lugar de los de aquí (lo que no venga en el archivo se toma de este bloque).
 #
 # Fuente:  http://datos.imss.gob.mx/sites/default/files/asg-AAAA-MM-DD.csv
 #          (un archivo por mes, separador "|", Latin-1; diccionario en catalogos/)
 # ==============================================================================
+
+from datetime import date
+
+# ##############################################################################
+#                                  PARÁMETROS
+# ##############################################################################
+
+NOMBRE = "autopartes"             # nombra carpetas y archivos de salida
+CARPETA_SALIDA = "data"           # relativa al repo o absoluta ("~/Desktop/ATDT/...")
+
+FECHA_INI = date(2018, 1, 1)
+FECHA_FIN = None                  # None = último mes cerrado; o p. ej. date(2025, 12, 1)
+
+# ---- ACTIVIDAD ECONÓMICA -----------------------------------------------------
+# Vector de claves, o False para apagar ese nivel.
+# Claves en catalogos/actividades_imss.csv (o diccionario_IMSS.xlsx, columnas _2pos/_4_pos).
+# Cada fila del ASG trae los tres niveles, así que SECTOR_2 = [38] toma todas las 38xx.
+SECTOR_1 = False                  # división, 1 dígito      p. ej. [3]
+SECTOR_2 = False                  # grupo, 2 dígitos        p. ej. [38]
+SECTOR_4 = [3802, 3803, 3809, 3810, 3804]   # fracción, 4 dígitos
+
+# Nivel al que se suman los paneles:
+#   "auto" = el nivel más fino que tenga filtro (aquí, fracción)
+#   o fijo: "SECTOR_1", "SECTOR_2", "SECTOR_4"
+NIVEL_SECTOR = "auto"
+
+# ---- OTROS FILTROS (vector o False) ------------------------------------------
+ENTIDADES = False                 # p. ej. [11, 14] Guanajuato y Jalisco
+MUNICIPIOS = False                # alfanumérico IMSS, p. ej. ["A01"]
+DELEGACIONES = False
+SUBDELEGACIONES = False
+SEXO = False                      # 1 hombre, 2 mujer
+TAMANO_PATRON = False             # ["S1", ..., "S7"]
+RANGO_EDAD = False                # ["E1", ..., "E14"]
+RANGO_SALARIAL = False            # ["W1", ...] en salarios mínimos
+RANGO_UMA = False                 # ["W1", ...] en UMAs (desde feb-2017)
+PLATAFORMA_DIGITAL = False        # [1] = trabajadores de plataformas digitales
+
+# ---- ETIQUETAS (opcional): columna "grupo" que junta claves; None = no crearla --
+ETIQUETAS = {
+    "nivel": "SECTOR_4",
+    "grupos": {
+        "autopartes": [3802, 3803, 3809, 3810],
+        "sistemas_electricos": [3804],
+    },
+}
+
+# ---- PANEL AGREGADO (asg_{NOMBRE}_mensual.parquet) -----------------------------
+# "SECTOR" = el nivel de NIVEL_SECTOR
+AGREGAR_POR = ["fecha", "grupo", "SECTOR", "ENTIDADES", "SEXO"]
+METRICAS_PANEL = ["asegurados", "ta", "teu", "tec", "tpu", "tpc", "masa_sal_ta", "masa_sal_tpu"]
+
+# ---- PANEL DE OCUPADOS (panel_ocupados.py) -------------------------------------
+PANEL_CLAVE = "SECTOR"            # "SECTOR", "SECTOR_2", "grupo", "ENTIDADES", ...
+PANEL_POR = []                    # p. ej. ["ENTIDADES"]; [] = total nacional
+PANEL_METRICA = "ta"              # ta = puestos de trabajo afiliados
+
+# ---- DESCARGA ----------------------------------------------------------------
+N_HILOS = 4                       # descargas simultáneas
+TIMEOUT_SIN_DATOS = 60            # seg sin recibir nada antes de cortar
+MAX_SEG_INTENTO = 180             # tope por intento (un mes normal tarda ~30 s)
+REINTENTOS = 5
+
+# ##############################################################################
+#                     FIN DE PARÁMETROS (no hace falta editar abajo)
+# ##############################################################################
 
 import argparse
 import calendar
@@ -23,7 +91,6 @@ import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date
 from pathlib import Path
 
 import polars as pl
@@ -90,46 +157,41 @@ def resolver_nivel(nivel, filtros):
     return "sector_economico_4"
 
 
-DEFAULTS = dict(
-    NOMBRE=None,
-    FECHA_INI=date(2018, 1, 1),
-    FECHA_FIN=None,                 # None = último mes cerrado
-    # filtros (False = no filtrar); ver PARAMETROS_FILTRO
-    **{k: False for k in [
-        "SECTOR_1", "SECTOR_2", "SECTOR_4", "ENTIDADES", "MUNICIPIOS", "DELEGACIONES",
-        "SUBDELEGACIONES", "SEXO", "TAMANO_PATRON", "RANGO_EDAD", "RANGO_SALARIAL",
-        "RANGO_UMA", "PLATAFORMA_DIGITAL"]},
-    ETIQUETAS=None,
-    NIVEL_SECTOR="auto",
-    AGREGAR_POR=["fecha", "SECTOR"],
-    METRICAS_PANEL=["asegurados", "ta", "tpu", "teu", "masa_sal_ta"],
-    CARPETA_SALIDA="data",
-    PANEL_CLAVE="SECTOR",               # para panel_ocupados.py
-    PANEL_POR=[],
-    PANEL_METRICA="ta",
-    N_HILOS=4,
-    TIMEOUT_SIN_DATOS=60,
-    MAX_SEG_INTENTO=180,
-    REINTENTOS=5,
-)
+NOMBRES_PARAMETROS = [
+    "NOMBRE", "CARPETA_SALIDA", "FECHA_INI", "FECHA_FIN", *PARAMETROS_FILTRO, "NIVEL_SECTOR",
+    "ETIQUETAS", "AGREGAR_POR", "METRICAS_PANEL", "PANEL_CLAVE", "PANEL_POR", "PANEL_METRICA",
+    "N_HILOS", "TIMEOUT_SIN_DATOS", "MAX_SEG_INTENTO", "REINTENTOS"]
+DEFAULTS = {k: globals()[k] for k in NOMBRES_PARAMETROS}   # los del bloque PARÁMETROS
 
 
 # CONFIGURACIÓN __________________________________________________________________
 
-def cargar_config(ruta):
-    spec = importlib.util.spec_from_file_location("config_asg", ruta)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+RAIZ = Path(__file__).resolve().parent
+
+
+def ruta_salida(cfg):
+    """CARPETA_SALIDA absoluta; si es relativa, se toma desde la carpeta del repo."""
+    p = Path(cfg["CARPETA_SALIDA"]).expanduser()
+    return p if p.is_absolute() else RAIZ / p
+
+
+def cargar_config(ruta=None):
+    """Parámetros del bloque de arriba; si se da un archivo de configs/, este los reemplaza."""
     cfg = dict(DEFAULTS)
-    cfg.update({k: getattr(mod, k) for k in DEFAULTS if hasattr(mod, k)})
+    mod = None
+    if ruta:
+        spec = importlib.util.spec_from_file_location("config_asg", ruta)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        cfg.update({k: getattr(mod, k) for k in DEFAULTS if hasattr(mod, k)})
 
     if not cfg["NOMBRE"]:
         sys.exit("La configuración necesita NOMBRE (se usa para nombrar carpetas y archivos).")
 
-    if hasattr(mod, "FILTROS"):
+    if mod is not None and hasattr(mod, "FILTROS"):
         sys.exit("FILTROS ya no se usa: pon cada filtro como variable (SECTOR_4 = [...], "
                  "ENTIDADES = False, etc.). Ver configs/plantilla.py.")
-    if hasattr(mod, "FRACCIONES"):           # alias cómodo de SECTOR_4
+    if mod is not None and hasattr(mod, "FRACCIONES"):   # alias cómodo de SECTOR_4
         if getattr(mod, "SECTOR_4", False) is not False:
             sys.exit("Usa FRACCIONES o SECTOR_4, no ambos.")
         cfg["SECTOR_4"] = mod.FRACCIONES
@@ -233,13 +295,18 @@ def descargar(url, tmp, cfg, f):
             with urllib.request.urlopen(url, timeout=cfg["TIMEOUT_SIN_DATOS"]) as r, \
                  open(tmp, "wb") as fh:
                 t_ini = time.time()
+                esperado = r.headers.get("Content-Length")
+                recibido = 0
                 while True:
                     bloque = r.read1(256 * 1024)   # devuelve lo que haya llegado, sin esperar el bloque completo
                     if not bloque:
                         break
                     fh.write(bloque)
+                    recibido += len(bloque)
                     if time.time() - t_ini > cfg["MAX_SEG_INTENTO"]:   # servidor a cuentagotas
                         raise TimeoutError(f"más de {cfg['MAX_SEG_INTENTO']} s descargando")
+            if esperado is not None and recibido != int(esperado):
+                raise IOError(f"descarga incompleta ({recibido:,} de {int(esperado):,} bytes)")
             return None
         except urllib.error.HTTPError as e:      # 404 etc.: no tiene caso reintentar
             return e
@@ -271,12 +338,16 @@ def procesar(f, tmpdir, cfg, carpeta_mes):
     try:
         lf = pl.scan_csv(tmp, separator="|", encoding="utf8-lossy", infer_schema=False)
         lf = lf.rename({c: normalizar_nombre(c) for c in lf.collect_schema().names()})
+        if "sector_economico_4" not in lf.collect_schema().names():
+            raise ValueError("el archivo no tiene el formato del ASG")
         for col, valores in cfg["FILTROS"].items():
             lf = lf.filter(condicion(col, valores))
         df = tipar(lf.collect()).with_columns(fecha=pl.lit(date.fromisoformat(f)))
         parcial = out.with_suffix(".parquet.tmp")      # escritura atómica
         df.write_parquet(parcial)
         parcial.rename(out)
+    except Exception as e:                             # archivo dañado: no tumba la corrida
+        return f, f"NO DISPONIBLE (archivo inválido: {str(e).splitlines()[0][:120]})"
     finally:
         tmp.unlink(missing_ok=True)
     return f, f"{df.height:,} filas ({time.time() - t0:.0f} s)"
@@ -325,13 +396,14 @@ def unir_y_agregar(cfg, carpeta_mes, carpeta_salida):
 
 def main():
     ap = argparse.ArgumentParser(description="Extrae ASG del IMSS con filtros configurables.")
-    ap.add_argument("config", help="archivo de configuración, p. ej. configs/autopartes.py")
+    ap.add_argument("config", nargs="?", default=None,
+                    help="opcional: archivo de configs/ que reemplaza los PARÁMETROS de arriba")
     ap.add_argument("--solo-unir", action="store_true",
                     help="no descarga; solo rearma detalle y panel con los meses guardados")
     args = ap.parse_args()
 
     cfg = cargar_config(args.config)
-    carpeta_salida = Path(cfg["CARPETA_SALIDA"]).expanduser()
+    carpeta_salida = ruta_salida(cfg)
     carpeta_mes = carpeta_salida / f"asg_{cfg['NOMBRE']}_meses"
     carpeta_mes.mkdir(parents=True, exist_ok=True)
 

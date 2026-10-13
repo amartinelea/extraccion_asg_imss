@@ -7,24 +7,40 @@ en parquet.
 
 ## Uso
 
-```bash
-python -m pip install -r requirements.txt
-python extraer_asg.py configs/autopartes.py      # 1. descarga, filtra y agrega
-python panel_ocupados.py configs/autopartes.py   # 2. panel de ocupados por clave
-```
+1. Abre `extraer_asg.py` y edita el bloque **PARÁMETROS** del inicio. Ahí van los
+   vectores de sectores o fracciones:
 
-Para una extracción nueva, copia `configs/plantilla.py`, ajusta los filtros y córrelo
-igual. Con `--solo-unir` no descarga nada y solo rearma el detalle y el panel con los
-meses ya guardados (útil si cambias `ETIQUETAS`, `AGREGAR_POR` o `METRICAS_PANEL`).
+   ```python
+   SECTOR_1 = False                              # división (1 dígito)
+   SECTOR_2 = False                              # grupo (2 dígitos)
+   SECTOR_4 = [3802, 3803, 3809, 3810, 3804]     # fracción (4 dígitos)
+   ```
+
+2. Córrelo:
+
+   ```bash
+   python -m pip install -r requirements.txt
+   python extraer_asg.py        # descarga, filtra y agrega
+   python panel_ocupados.py     # panel de ocupados por clave
+   ```
+
+Con `--solo-unir` no descarga nada y solo rearma el detalle y el panel con los meses ya
+guardados (útil si cambias `ETIQUETAS`, `AGREGAR_POR` o `METRICAS_PANEL`).
+
+**Opcional:** para tener varias extracciones guardadas sin editar el script, crea un
+archivo en `configs/` con solo los parámetros que cambian (ver
+`configs/ejemplo_grupo38_por_estado.py`) y pásalo como argumento:
+`python extraer_asg.py configs/mi_archivo.py`. Lo que no venga en el archivo se toma
+del bloque de `extraer_asg.py`.
 
 ## Configuración
 
-Todo vive en el archivo de `configs/`:
+Parámetros del bloque al inicio de `extraer_asg.py`:
 
 | Variable | Qué hace |
 |---|---|
 | `NOMBRE` | Nombre de la extracción; define carpetas y archivos de salida |
-| `CARPETA_SALIDA` | Dónde se guarda todo (relativa o absoluta) |
+| `CARPETA_SALIDA` | Dónde se guarda todo (relativa a la carpeta del repo, o absoluta) |
 | `FECHA_INI`, `FECHA_FIN` | Periodo; `FECHA_FIN = None` es el último mes cerrado |
 | `SECTOR_1`, `SECTOR_2`, `SECTOR_4` | Actividad económica: vector de claves o `False` |
 | `ENTIDADES`, `MUNICIPIOS`, `SEXO`, `TAMANO_PATRON`, `RANGO_EDAD`, … | Otros filtros: vector o `False` |
@@ -100,8 +116,8 @@ aparece con 0.
 * Desagregaciones extra con `PANEL_POR` o `--por` (p. ej. `--por ENTIDADES SEXO`).
 
 ```bash
-python panel_ocupados.py configs/autopartes.py --clave grupo
-python panel_ocupados.py configs/autopartes.py --clave SECTOR_2 --por ENTIDADES
+python panel_ocupados.py --clave grupo
+python panel_ocupados.py --clave SECTOR_2 --por ENTIDADES
 ```
 
 Salidas en `CARPETA_SALIDA`:

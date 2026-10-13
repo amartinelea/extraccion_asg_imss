@@ -20,7 +20,7 @@ import polars as pl
 
 RAIZ = Path(__file__).resolve().parent
 sys.path.insert(0, str(RAIZ))
-from extraer_asg import cargar_config, fechas_corte  # noqa: E402
+from extraer_asg import cargar_config, fechas_corte, ruta_salida  # noqa: E402
 
 CONFIG = RAIZ / "configs" / "autopartes_test.py"
 
@@ -46,8 +46,7 @@ def main():
     args = ap.parse_args()
 
     cfg = cargar_config(CONFIG)
-    salida = (RAIZ / cfg["CARPETA_SALIDA"]).resolve() if not Path(cfg["CARPETA_SALIDA"]).is_absolute() \
-        else Path(cfg["CARPETA_SALIDA"])
+    salida = ruta_salida(cfg)
     nombre = cfg["NOMBRE"]
     fracciones = sorted(cfg["FILTROS"]["sector_economico_4"])
 
