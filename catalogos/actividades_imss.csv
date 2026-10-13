@@ -1,0 +1,349 @@
+nivel,clave,descripcion
+sector_economico_1,0,"Agricultura, Ganadería, Silvicultura, Pesca y Caza"
+sector_economico_1,1,Industrias Extractivas
+sector_economico_1,2,Industrias de la Transformación
+sector_economico_1,3,Industrias de la Transformación
+sector_economico_1,4,Industria de la Construcción
+sector_economico_1,5,Ind Eléctrica y Captación y Suministro de Agua Potable
+sector_economico_1,6,Comercio
+sector_economico_1,7,Transportes y Comunicaciones
+sector_economico_1,8,"Servicios para Empresas, Personas y el Hogar"
+sector_economico_1,9,Servicios Sociales y Comunales
+sector_economico_2,1,Agricultura
+sector_economico_2,2,Ganadería
+sector_economico_2,3,Silvicultura
+sector_economico_2,4,Pesca
+sector_economico_2,5,Caza
+sector_economico_2,11,"Extracción y Beneficio de Carbón Mineral, Grafito y Minerales no Metálicos; excepto Sal"
+sector_economico_2,12,Exploración y Extracción de Petróleo Crudo y Gas Natural
+sector_economico_2,13,Extracción y Beneficio de Minerales Metálicos
+sector_economico_2,14,Explotación de Sal
+sector_economico_2,20,Elaboración de Alimentos
+sector_economico_2,21,Elaboración de Bebidas
+sector_economico_2,22,Beneficio y/o Fabricación de Productos de Tabaco
+sector_economico_2,23,Industria Textil
+sector_economico_2,24,Confección de Prendas de Vestir y otros Artículos a base de Textiles y Materiales Diversos; excepto Calzado
+sector_economico_2,25,Fabricación de Calzado e Industria del Cuero
+sector_economico_2,26,Industria y Productos de Madera y Corcho; excepto Muebles
+sector_economico_2,27,Fabricación y/o Reparación de Muebles de Madera y sus Partes; excepto los de Metal y de Plástico Moldeado
+sector_economico_2,28,Industria del Papel
+sector_economico_2,29,"Industrias Editorial, de Impresión y Conexas"
+sector_economico_2,30,Industria Química
+sector_economico_2,31,Refinación del Petróleo y derivados del Carbón Mineral
+sector_economico_2,32,Fabricación de Productos de Hule y Plástico
+sector_economico_2,33,Fabricación de Productos de Minerales no Metálicos; excepto del Petróleo y del Carbón Mineral
+sector_economico_2,34,Industrias Metálicas Básicas
+sector_economico_2,35,Fabricación de Productos Metálicos; excepto Maquinaria y Equipo
+sector_economico_2,36,"Fabricación, Ensamble y/o Reparación de Maquinaria, Equipo y sus Partes; excepto los Eléctricos"
+sector_economico_2,37,"Fabricación y/o Ensamble de Maquinaria, Equipos, Aparatos, Accesorios y Artículos Eléctricos, Electrónicos y sus Partes"
+sector_economico_2,38,"Construcción, Reconstrucción y Ensamble de Equipo de Transporte y sus Partes"
+sector_economico_2,39,Otras Industrias Manufactureras
+sector_economico_2,41,Construcción de Edificaciones y de Obras de Ingeniería Civil
+sector_economico_2,42,Trabajos Realizados por Contratistas Especializados
+sector_economico_2,50,"Generación, Transmisión y Distribución de Energía Eléctrica"
+sector_economico_2,51,Captación y Suministro de Agua Potable y Tratada
+sector_economico_2,61,"Compraventa de Alimentos, Bebidas y Productos del Tabaco"
+sector_economico_2,62,Compraventa de Prendas de Vestir y Otros Artículos de Uso Personal
+sector_economico_2,63,Compraventa de Artículos Para el Hogar
+sector_economico_2,64,Compraventa En Tiendas de Autoservicio y de departamentos Especializados por Línea de Mercancías
+sector_economico_2,65,"Compraventa de Gases, Combustibles y Lubricantes"
+sector_economico_2,66,"Compraventa de Materias Primas, Materiales y Auxiliares"
+sector_economico_2,67,"Compraventa de Maquinaria, Equipo, Instrumentos, Aparatos, Herramientas; sus Refacciones y Accesorios"
+sector_economico_2,68,Compraventa de Equipo de Transporte; sus Refacciones y Accesorios
+sector_economico_2,69,Compraventa de Inmuebles y Artículos Diversos
+sector_economico_2,71,Transporte Terrestre
+sector_economico_2,72,Transporte por Agua
+sector_economico_2,73,Transporte Aéreo
+sector_economico_2,74,Servicios Conexos al Transporte
+sector_economico_2,75,Servicios Relacionados Con el Transporte En General
+sector_economico_2,76,Comunicaciones
+sector_economico_2,81,"Servicios Financieros y de Seguros (Bancos, Financieras, Compañías de Seguros y Similares)"
+sector_economico_2,82,Servicios Colaterales a las Instituciones Financieras y de Seguros
+sector_economico_2,83,Servicios Relacionados Con Inmuebles
+sector_economico_2,84,Servicios Profesionales y Técnicos
+sector_economico_2,85,Servicios de Alquiler; excepto de Inmuebles
+sector_economico_2,86,Servicios de Alojamiento Temporal
+sector_economico_2,87,Preparación y Servicio de Alimentos y Bebidas
+sector_economico_2,88,Servicios Recreativos y de Esparcimiento
+sector_economico_2,89,Servicios Personales para el Hogar y Diversos
+sector_economico_2,91,"Servicios de Enseñanza, Investigación Científica y Difusión Cultural"
+sector_economico_2,92,"Servicios Médicos, Asistencia Social y Veterinarios"
+sector_economico_2,93,"Agrupaciones Mercantiles, Profesionales, Cívicas, Políticas, Laborales y Religiosas"
+sector_economico_2,94,Servicios de Administración Pública y Seguridad Social
+sector_economico_2,99,Servicios de Organizaciones Internacionales y Otros Organismos Extraterritoriales
+sector_economico_4,101,Agricultura
+sector_economico_4,201,Cría y explotación de ganado y otras clases de animales
+sector_economico_4,301,Explotación de bosques madereros; extracción de productos forestales no maderables y servicios de explotación forestal
+sector_economico_4,401,Pesca de altura y costera
+sector_economico_4,402,Pesca en aguas interiores
+sector_economico_4,403,Acuicultura
+sector_economico_4,404,Trabajos de buceo
+sector_economico_4,500,Caza
+sector_economico_4,1101,"Extracción y beneficio de carbón mineral, grafito y minerales no metálicos en minas de profundidad"
+sector_economico_4,1102,Beneficio de minerales no metálicos
+sector_economico_4,1103,Extracción y beneficio de azufre
+sector_economico_4,1104,"Extracción y beneficio de minerales no metálicos, en minas a cielo abierto"
+sector_economico_4,1201,Exploración y extracción de petróleo crudo y gas natural
+sector_economico_4,1301,"Extracción y beneficio de minerales metálicos, en minas de profundidad"
+sector_economico_4,1302,Beneficio de minerales metálicos
+sector_economico_4,1303,"Extracción y beneficio de minerales metálicos, en minas a cielo abierto"
+sector_economico_4,1401,Explotación y/o beneficio de yacimientos de sal
+sector_economico_4,2001,"Elaboración y preparación de productos alimenticios a base de frutas y legumbres, su conservación, envasado y/o empacado"
+sector_economico_4,2002,"Beneficio de otros granos, fabricación y envasado"
+sector_economico_4,2003,Producción de azúcar
+sector_economico_4,2004,Matanza de ganado y aves
+sector_economico_4,2005,"Elaboración, preparación, conservación, envasado y/o empacado de carnes y sus derivados"
+sector_economico_4,2006,"Elaboración, preparación, conservación, envasado y/o empacado de productos lácteos"
+sector_economico_4,2007,"Elaboración, preparación, conservación, envasado y/o empacado de pescados, mariscos y otros productos marinos"
+sector_economico_4,2008,Elaboración de productos a base de cereales
+sector_economico_4,2009,"Elaboración de chocolates, dulces, confituras, jarabes, concentrados y colorantes para alimentos"
+sector_economico_4,2010,Elaboración de alimentos para animales
+sector_economico_4,2011,Fabricación de aceites y grasas vegetales alimenticias
+sector_economico_4,2012,"Fabricación de almidones, féculas, levaduras, malta y productos similares"
+sector_economico_4,2013,"Elaboración, preparación, envasado y/o empacado de otros productos alimenticios"
+sector_economico_4,2014,"Elaboración, preparación, envasado y/o empacado de productos alimenticios, sin maquinaria ni equipo motorizado"
+sector_economico_4,2015,"Fabricación de productos a base de cereales, con procesos continuos automatizados"
+sector_economico_4,2016,Fabricación de harinas y productos de molino a base de cereales y leguminosas
+sector_economico_4,2101,Elaboración y/o envase de bebidas alcohólicas
+sector_economico_4,2102,Elaboración de cerveza y malta
+sector_economico_4,2103,"Elaboración y/o envase de refrescos, aguas gaseosas y purificadas"
+sector_economico_4,2200,Beneficio y/o fabricación de productos de tabaco
+sector_economico_4,2301,"Fabricación, preparación, hilado, tejido y acabado de textiles de fibras blandas"
+sector_economico_4,2302,"Trabajos de blanqueo, teñido, estampado, impermeabilizado y acabado de hilados y tejidos de fibras blandas"
+sector_economico_4,2303,Fabricación de tejidos y artículos de punto
+sector_economico_4,2304,"Fabricación, preparación, hilado, tejido y acabado de textiles de fibras duras"
+sector_economico_4,2305,Trabajos de hilados y/o tejidos sin maquinaria ni equipo motorizado
+sector_economico_4,2306,Fabricación de tejidos de fibras blandas con telares automáticos sin lanzadera
+sector_economico_4,2307,Fabricación de hilados con máquinas de turbina
+sector_economico_4,2401,Confección de prendas de vestir a la medida
+sector_economico_4,2402,Confección de prendas de vestir
+sector_economico_4,2403,Otros artículos confeccionados con textiles y materiales diversos
+sector_economico_4,2501,"Fabricación de calzado, con maquinaria y/o equipo motorizado"
+sector_economico_4,2502,"Fabricación de calzado, sin maquinaria ni equipo motorizado"
+sector_economico_4,2503,Curtido y acabado de cuero y piel
+sector_economico_4,2504,"Manufactura de artículos de cuero, piel y sucedáneos, en forma artesanal"
+sector_economico_4,2505,"Fabricación de artículos de cuero, piel y sucedáneos"
+sector_economico_4,2506,"Curtido y acabado de cuero y piel, con uso exclusivo de maquinaria y/o equipo motorizado"
+sector_economico_4,2601,Fabricación de productos de aserradero
+sector_economico_4,2602,Fabricación de artículos y accesorios de madera
+sector_economico_4,2603,"Manufactura de artículos de corcho, palma, vara, carrizo y mimbre"
+sector_economico_4,2604,"Fabricación de artículos de corcho, palma, vara, carrizo y mimbre"
+sector_economico_4,2701,Fabricación y/o reparación de muebles de madera y sus partes
+sector_economico_4,2801,Fabricación de papel y/o cartón y sus derivados
+sector_economico_4,2802,Fabricación de artículos a base de papel y/o cartón
+sector_economico_4,2901,"Industrias editorial, de impresión, encuadernación y actividades conexas"
+sector_economico_4,3001,Fabricación de sustancias químicas e industriales; excepto abonos
+sector_economico_4,3002,"Fabricación de abonos, fertilizantes y plaguicidas"
+sector_economico_4,3003,Fabricación de resinas sintéticas y plastificantes
+sector_economico_4,3004,Industria de las pinturas
+sector_economico_4,3005,Industrias químico-farmacéuticas y de medicamentos
+sector_economico_4,3007,Fabricación de productos químicos para limpieza y aromatizantes ambientales
+sector_economico_4,3008,Fabricación de perfumes y cosméticos
+sector_economico_4,3009,"Fabricación de aceites y grasas vegetales y animales no comestibles, para usos industriales"
+sector_economico_4,3010,"Fabricación de velas, veladoras y similares"
+sector_economico_4,3012,Fabricación de cerillos
+sector_economico_4,3013,Fabricación de explosivos y fuegos artificiales
+sector_economico_4,3014,Otros productos de las industrias químicas conexas
+sector_economico_4,3016,Fabricación de fibras artificiales y sintéticas
+sector_economico_4,3101,Refinación del petróleo crudo y petroquímica básica
+sector_economico_4,3102,Fabricación de lubricantes y aditivos
+sector_economico_4,3103,Fabricación de productos a base de asfalto y sus mezclas
+sector_economico_4,3201,Fabricación de productos de hule
+sector_economico_4,3202,Fabricación de productos de plástico
+sector_economico_4,3203,Fabricación de productos de látex
+sector_economico_4,3301,Manufactura de artículos de alfarería y cerámica
+sector_economico_4,3302,"Fabricación de muebles sanitarios, loza, porcelana y artículos refractarios"
+sector_economico_4,3303,Fabricación de vidrio y/o productos de vidrio
+sector_economico_4,3305,Fabricación de productos de arcilla para la construcción
+sector_economico_4,3306,Fabricación de cal y yeso
+sector_economico_4,3307,Fabricación de productos a base de asbesto
+sector_economico_4,3308,Fabricación de productos abrasivos
+sector_economico_4,3309,"Fabricación de granito artificial, productos de mármol y otras piedras"
+sector_economico_4,3310,Fabricación de productos y partes preconstruidas de concreto
+sector_economico_4,3312,"Fabricación de azulejos, con procesos continuos automatizados"
+sector_economico_4,3313,"Fabricación de vidrio y/o productos de vidrio, con procesos continuos automatizados"
+sector_economico_4,3315,Fabricación de productos de asbesto-cemento
+sector_economico_4,3316,Fabricación de cemento
+sector_economico_4,3317,Fabricación de concreto premezclado
+sector_economico_4,3401,"Industrias básicas del hierro, acero y metales no ferrosos"
+sector_economico_4,3402,"Industrias básicas del hierro, acero y metales no ferrosos, con procesos automatizados"
+sector_economico_4,3501,"Fabricación de utensilios agrícolas, herramientas y artículos de ferretería y cerrajería"
+sector_economico_4,3502,"Fabricación y/o reparación de puertas, ventanas, cortinas metálicas y otros trabajos de herrería"
+sector_economico_4,3503,"Fabricación, ensamble y/o reparación de muebles metálicos y sus partes"
+sector_economico_4,3504,"Fabricación y/o reparación de estructuras metálicas, tanques, calderas y similares"
+sector_economico_4,3505,"Fabricación de envases metálicos, corcholatas y tapas"
+sector_economico_4,3506,Fabricación de alambres y otros productos de alambre
+sector_economico_4,3507,Trabajos de tratamientos térmicos y galvanoplastia
+sector_economico_4,3508,"Fabricación de agujas, alfileres, cierres, botones y navajas para rasurar"
+sector_economico_4,3509,"Fabricación de baterías de cocina, cucharas, cuchillos y tenedores"
+sector_economico_4,3510,Fabricación de otros productos metálicos maquinados
+sector_economico_4,3511,"Tratamientos térmicos y galvanoplastia, con procesos continuos automatizados"
+sector_economico_4,3601,"Fabricación y/o ensamble de maquinaria, equipos e implementos para labores agropecuarias"
+sector_economico_4,3602,"Fabricación y/o ensamble de maquinaria, equipo e implementos para las industrias de alimentos, bebidas, tabacalera, textil, calzado, madera, cuero, impresión, hule, plástico, productos de minerales no metálicos (excepto cemento), metal mecánica y maquinaria y equipo de uso común a varias industrias"
+sector_economico_4,3603,"Fabricación y/o ensamble de maquinaria, equipo e implementos para las industrias de la construcción, extractivas, papel, cemento, petroquímica básica, química; metálicas básicas del hierro, del acero y de metales no ferrosos"
+sector_economico_4,3604,"Fabricación y/o ensamble de máquinas de coser, oficina, cómputo y sus partes"
+sector_economico_4,3605,Reparación y ensamble de máquinas de coser y de oficina
+sector_economico_4,3606,"Fabricación de partes y piezas sueltas, para maquinaria y equipo en general"
+sector_economico_4,3607,Reparación y/o mantenimiento de maquinaria y equipo en general
+sector_economico_4,3701,Fabricación y/o ensamble de maquinaria y equipo para generación y transformación de energía eléctrica
+sector_economico_4,3702,"Fabricación y/o ensamble de equipo y aparatos de radio, televisión y comunicaciones"
+sector_economico_4,3703,"Fabricación y/o grabado de discos y cintas magnéticas para sonidos, imágenes y datos"
+sector_economico_4,3704,Fabricación y/o ensamble de aparatos eléctricos y sus partes para uso doméstico
+sector_economico_4,3705,"Fabricación, reconstrucción y/o ensamble de acumuladores eléctricos"
+sector_economico_4,3706,"Fabricación y/o ensamble de pilas (secas), componentes eléctricos y electrónicos diversos"
+sector_economico_4,3707,Fabricación y/o ensamble de lámparas (focos) y tubos al vacío para alumbrado eléctrico
+sector_economico_4,3708,Fabricación de conductores eléctricos
+sector_economico_4,3709,"Fabricación y/o ensamble de aparatos, accesorios eléctricos o electrónicos, para empalme, corte, protección y conexión"
+sector_economico_4,3710,Fabricación de luminarias y anuncios luminosos
+sector_economico_4,3711,Fabricación en serie o con procesos continuos de acumuladores eléctricos
+sector_economico_4,3712,"Fabricación y/o ensamble de refrigeradores, estufas, lavadoras, secadoras y otros aparatos de línea blanca"
+sector_economico_4,3801,Fabricación y/o ensamble de aeronaves
+sector_economico_4,3802,Fabricación y/o ensamble de carrocerías para vehículos de transporte
+sector_economico_4,3803,"Fabricación y/o ensamble de partes y accesorios para automóviles, autobuses, camiones, motocicletas y bicicletas"
+sector_economico_4,3804,Fabricación y/o ensamble de partes para el sistema eléctrico de vehículos automóviles
+sector_economico_4,3805,Fabricación y/o ensamble de bicicletas y otros vehículos de pedal
+sector_economico_4,3806,"Fabricación, ensamble y/o reparación de carros de ferrocarril, equipo ferroviario y sus partes"
+sector_economico_4,3807,"Fabricación, ensamble y/o reparación de embarcaciones"
+sector_economico_4,3808,"Fabricación y/o ensamble de automóviles, autobuses, camiones y motocicletas"
+sector_economico_4,3809,"Fabricación y/o ensamble de motores para automóviles, autobuses y camiones"
+sector_economico_4,3810,"Fabricación de conjuntos mecánicos y sus partes para automóviles, autobuses, camiones y motocicletas"
+sector_economico_4,3900,"Fabricación, ensamble y/o reparación de equipos, aparatos científicos y profesionales e instrumentos de medida y control"
+sector_economico_4,3901,"Fabricación, ensamble y/o reparación de aparatos, instrumentos y accesorios de óptica y fotografía"
+sector_economico_4,3902,"Fabricación, montaje y/o ensamble de relojes, joyas, artículos de orfebrería y fantasía"
+sector_economico_4,3904,"Fabricación y/o ensamble de instrumentos musicales, paraguas, juguetes y artículos deportivos, con maquinaria y/o equipo motorizado"
+sector_economico_4,3905,"Fabricación y/o ensamble de instrumentos musicales, paraguas, juguetes y artículos deportivos, sin maquinaria ni equipo motorizado"
+sector_economico_4,3906,"Fabricación de lápices, gomas, plumas y bolígrafos"
+sector_economico_4,3907,Talleres de mecánica dental
+sector_economico_4,3908,"Fabricación y/o ensamble de armas de fuego portátiles, cartuchos, municiones y accesorios"
+sector_economico_4,3909,"Fabricación, ensamble y/o reparación de otros artículos manufacturados no clasificados anteriormente, sin maquinaria ni equipo motorizado"
+sector_economico_4,3910,"Fabricación, ensamble y/o reparación de otros artículos manufacturados no clasificados anteriormente, con maquinaria y/o equipo motorizado"
+sector_economico_4,4101,Construcción de edificaciones; excepto obra pública
+sector_economico_4,4102,Construcciones de obras de infraestructura y edificaciones en obra pública
+sector_economico_4,4201,"Instalaciones sanitarias, eléctricas, de gas y de aire acondicionado"
+sector_economico_4,4202,"Instalación y reparación de ascensores, escaleras electromecánicas y otros equipos para transportación"
+sector_economico_4,4203,"Instalación de ventanería, herrería, cancelería, vidrios y cristales"
+sector_economico_4,4204,Otros servicios de instalación vinculados al acabado o remodelación de obras de construcción
+sector_economico_4,5000,"Generación, transmisión y distribución de energía eléctrica"
+sector_economico_4,5100,Captación y suministro de agua potable y tratada
+sector_economico_4,6101,"Expendios de ventas al menudeo de alimentos, bebidas y/o productos del tabaco"
+sector_economico_4,6102,"Compraventa de alimentos, bebidas y/o productos del tabaco, sin transporte"
+sector_economico_4,6103,"Compraventa de alimentos, bebidas y/o productos del tabaco, con transporte"
+sector_economico_4,6104,Compraventa e introducción de animales vivos
+sector_economico_4,6201,Expendios de ventas al menudeo de prendas y accesorios de vestir y artículos para su confección
+sector_economico_4,6202,"Compraventa de prendas y accesorios de vestir y artículos para su confección, sin transporte"
+sector_economico_4,6203,"Compraventa de prendas y accesorios de vestir y artículos para su confección, con transporte"
+sector_economico_4,6204,Expendios de ventas al menudeo de artículos de uso personal
+sector_economico_4,6205,"Compraventa de artículos de uso personal, sin transporte"
+sector_economico_4,6206,"Compraventa de artículos de uso personal, con transporte"
+sector_economico_4,6207,"Expendios de ventas al menudeo de medicamentos, productos farmacéuticos, químico-farmacéuticos y de perfumería"
+sector_economico_4,6208,"Compraventa de medicamentos, productos farmacéuticos, químico-farmacéuticos y de perfumería, sin transporte"
+sector_economico_4,6209,"Compraventa de medicamentos, productos farmacéuticos, químico-farmacéuticos y de perfumería, con transporte"
+sector_economico_4,6210,"Expendios de ventas al menudeo de papelería, útiles escolares y de oficina; libros, periódicos y revistas"
+sector_economico_4,6211,"Compraventa de papelería, útiles escolares y de oficina; libros, periódicos y revistas, sin transporte"
+sector_economico_4,6212,"Compraventa de papelería, útiles escolares y de oficina; libros, periódicos y revistas, con transporte"
+sector_economico_4,6301,"Expendios de ventas al menudeo de máquinas, muebles, aparatos e instrumentos para el hogar, sus refacciones y accesorios"
+sector_economico_4,6302,"Compraventa de máquinas, muebles, aparatos e instrumentos para el hogar, sus refacciones y accesorios, sin transporte"
+sector_economico_4,6303,"Compraventa de máquinas, muebles, aparatos e instrumentos para el hogar, sus refacciones y accesorios, con transporte y/o servicios de instalación"
+sector_economico_4,6304,Expendios de ventas al menudeo de otros artículos para el hogar
+sector_economico_4,6305,"Compraventa de otros artículos para el hogar, sin transporte"
+sector_economico_4,6306,"Compraventa de otros artículos para el hogar, con transporte y/o servicios de instalación"
+sector_economico_4,6401,"Supermercados, tiendas de autoservicio y de departamentos especializados por línea de mercancías"
+sector_economico_4,6501,"Compraventa, envasado y/o distribución de gases para uso doméstico, industrial y medicinal"
+sector_economico_4,6502,"Compraventa de lubricantes y aditivos, sin transporte"
+sector_economico_4,6503,"Estaciones de venta de gasolina, diesel y compraventa de lubricantes y aditivos, con transporte"
+sector_economico_4,6504,"Compraventa de leña, carbón vegetal y mineral"
+sector_economico_4,6601,Expendios de ventas al menudeo de materias primas agropecuarias
+sector_economico_4,6602,"Compraventa de materias primas agropecuarias, sin transporte"
+sector_economico_4,6603,"Compraventa de materias primas agropecuarias, con transporte"
+sector_economico_4,6604,"Compraventa de materiales para construcción, tales como madera, aceros y productos de ferretería, sin transporte, ni preparación de mercancías"
+sector_economico_4,6605,"Compraventa de materiales para construcción tales como: madera, aceros y productos de ferretería, con transporte y/o preparación de mercancías"
+sector_economico_4,6606,"Compraventa de material eléctrico, pinturas y productos de tlapalería, sin transporte"
+sector_economico_4,6607,"Compraventa de material eléctrico, pinturas y productos de tlapalería, con transporte"
+sector_economico_4,6608,"Compraventa de vidrio plano, cristales, espejos y lunas, sin transporte ni servicios de instalación"
+sector_economico_4,6609,"Compraventa de vidrio plano, cristales, espejos y lunas, con transporte y/o servicios de instalación"
+sector_economico_4,6610,"Compraventa de fertilizantes, plaguicidas y productos químicos (no explosivos) en envases cerrados, sin transporte"
+sector_economico_4,6611,"Compraventa de fertilizantes, plaguicidas y productos químicos (no explosivos) en envases cerrados o a granel, con transporte"
+sector_economico_4,6612,"Compraventa de pieles, cueros curtidos y otros artículos de peletería, sin transporte"
+sector_economico_4,6613,"Compraventa de pieles, cueros curtidos y otros artículos de peletería, con transporte"
+sector_economico_4,6614,"Compraventa de papel y cartón nuevos, sin transporte"
+sector_economico_4,6615,"Compraventa de papel y cartón nuevos, con transporte"
+sector_economico_4,6616,"Compraventa de chatarra, fierro viejo, partes o mecanismos usados y desperdicios en general"
+sector_economico_4,6617,Compraventa de explosivos y productos de pirotecnia
+sector_economico_4,6701,Expendio de ventas al menudeo de refacciones y accesorios para maquinaria y/o equipo para la producción de bienes
+sector_economico_4,6702,"Compraventa de maquinaria, equipo y sus refacciones y/o accesorios para la producción de bienes, sin transporte"
+sector_economico_4,6703,"Compraventa de maquinaria, equipo y sus refacciones y/o accesorios para la producción de bienes, con transporte y/o servicios de reparación o mantenimiento"
+sector_economico_4,6704,"Compraventa de maquinaria, equipo y sus refacciones y/o accesorios para la producción de bienes, con servicios de instalación"
+sector_economico_4,6705,"Expendios de ventas al menudeo de equipo, mobiliario, sus partes y/o accesorios para la prestación de servicios y el comercio"
+sector_economico_4,6706,"Compraventa de equipo, mobiliario, sus partes y/o accesorios para la prestación de servicios y el comercio, sin transporte"
+sector_economico_4,6707,"Compraventa de equipo, mobiliario, sus partes y/o accesorios para la prestación de servicios y el comercio, con transporte y/o servicios de instalación, reparación y mantenimiento"
+sector_economico_4,6708,"Expendios de ventas al menudeo de aparatos e instrumentos de medición, precisión, cirugía, laboratorio y otros usos científicos"
+sector_economico_4,6709,"Compraventa de aparatos e instrumentos de medición, precisión, cirugía, laboratorio y otros usos científicos, sin transporte"
+sector_economico_4,6710,"Compraventa de aparatos e instrumentos de medición, precisión, cirugía, laboratorio y otros usos científicos, con transporte y/o servicios de instalación, reparación o mantenimiento"
+sector_economico_4,6711,"Compraventa de equipo de cómputo o de procesamiento electrónico de datos y sus periféricos, con servicios de instalación, reparación y/o mantenimiento"
+sector_economico_4,6801,"Expendios de ventas al menudeo de refacciones, accesorios y/o partes para equipo de transporte"
+sector_economico_4,6802,"Compraventa de equipo de transporte, sus refacciones, accesorios y/o partes, sin transporte"
+sector_economico_4,6803,"Compraventa de equipo de transporte, sus refacciones, accesorios y/o partes, con transporte y/o servicios de instalación, reparación o mantenimiento"
+sector_economico_4,6901,Compraventa de bienes inmuebles
+sector_economico_4,6902,Expendios de ventas al menudeo de artículos diversos no clasificados
+sector_economico_4,6903,"Compraventa de artículos diversos no clasificados, sin transporte"
+sector_economico_4,6904,"Compraventa de artículos diversos no clasificados, con transporte y/o servicios de instalación, reparación o mantenimiento"
+sector_economico_4,7101,Transporte de pasajeros
+sector_economico_4,7102,Transporte de carga
+sector_economico_4,7103,Transporte ferroviario y eléctrico
+sector_economico_4,7201,Transporte marítimo y de navegación interior y servicios diversos a bordo y/o en plataformas marinas
+sector_economico_4,7202,Servicios directamente vinculados con el transporte por agua y/o servicios de supervisión y mantenimiento en plataformas marinas
+sector_economico_4,7300,Transporte aéreo
+sector_economico_4,7400,"Administración de vías de comunicación, terminales y servicios auxiliares"
+sector_economico_4,7501,Servicios de almacenamiento y/o refrigeración
+sector_economico_4,7502,"Servicios sin transporte de agencias de gestión aduanal, de equipajes, viajes y turísticas"
+sector_economico_4,7503,Servicios de grúa y emergencia para vehículos
+sector_economico_4,7504,"Servicios de alquiler de aeronaves, carros de ferrocarril y transportes acuáticos"
+sector_economico_4,7505,"Servicios con transporte de agencias de gestión aduanal, de mensajería y paquetería, de equipajes, viajes, turísticas y otras actividades relacionadas con los transportes en general"
+sector_economico_4,7600,Comunicaciones
+sector_economico_4,8100,"Instituciones de crédito, seguros y fianzas"
+sector_economico_4,8200,Servicios colaterales a las instituciones financieras y de seguros
+sector_economico_4,8300,Servicios relacionados con inmuebles
+sector_economico_4,8401,Servicios profesionales y técnicos
+sector_economico_4,8403,Servicios de instalación de maquinaria y equipo en general
+sector_economico_4,8404,Servicios de protección y custodia
+sector_economico_4,8405,Servicios de laboratorio para la industria en general
+sector_economico_4,8501,Servicios de alquiler de maquinaria y equipo agrícola
+sector_economico_4,8502,Servicios de alquiler de maquinaria y equipo para la construcción con operadores
+sector_economico_4,8503,Servicios de alquiler de maquinaria y equipo para la construcción sin operadores
+sector_economico_4,8504,Servicios de alquiler de equipo y mobiliario a empresas
+sector_economico_4,8505,Servicios de alquiler para el público en general
+sector_economico_4,8506,"Servicios de alquiler o renta de automóviles, bicicletas y motocicletas"
+sector_economico_4,8600,Servicios de alojamiento temporal
+sector_economico_4,8701,Preparación y servicio de alimentos
+sector_economico_4,8702,Preparación y servicio de bebidas alcohólicas
+sector_economico_4,8801,Servicios recreativos
+sector_economico_4,8802,Servicios de esparcimiento
+sector_economico_4,8803,"Hipódromos, galgódromos, lienzos charros, palenques y promoción y presentación de espectáculos taurinos"
+sector_economico_4,8804,"Servicios de centros nocturnos, salones de baile y casinos"
+sector_economico_4,8805,Promoción y montaje de exposiciones de pintura y escultura
+sector_economico_4,8806,Circos y juegos electromecánicos
+sector_economico_4,8901,"Servicios de reparación, lavado, engrasado, verificación de emisión de contaminantes y estacionamiento de vehículos con servicios mecánicos y/o de hojalatería"
+sector_economico_4,8902,"Servicios de reparación de artículos de uso doméstico y personal, sin maquinaria ni equipo motorizado"
+sector_economico_4,8903,"Servicios de reparación de artículos de uso doméstico y personal, con maquinaria y/o equipo motorizado"
+sector_economico_4,8904,Servicios para el aseo personal y sanitarios
+sector_economico_4,8905,Servicios de peluquería y salones de belleza
+sector_economico_4,8906,"Servicios de aseo y limpieza, sin maquinaria ni equipo motorizado"
+sector_economico_4,8907,"Servicios de aseo y limpieza, con maquinaria y/o equipo motorizado"
+sector_economico_4,8908,Servicios de limpieza de ventanas y fachadas
+sector_economico_4,8909,"Servicios de fumigación, desinfección y control de plagas"
+sector_economico_4,8910,Aerotecnia agrícola
+sector_economico_4,8911,Servicios de revelado fotográfico
+sector_economico_4,8912,Inhumaciones y servicios conexos
+sector_economico_4,8913,Servicios domésticos
+sector_economico_4,8914,Servicios de estacionamiento y/o pensión para vehículos
+sector_economico_4,9101,"Servicios de enseñanza académica, capacitación, investigación científica y difusión cultural"
+sector_economico_4,9201,Servicios médicos
+sector_economico_4,9202,"Servicios médicos, paramédicos y auxiliares"
+sector_economico_4,9203,Servicios de asistencia social
+sector_economico_4,9204,Servicios veterinarios y auxiliares
+sector_economico_4,9301,"Asociaciones y organizaciones comerciales, profesionales, cívicas, laborales y políticas"
+sector_economico_4,9303,Organizaciones religiosas
+sector_economico_4,9401,Servicios generales de la administración pública
+sector_economico_4,9402,Seguridad pública
+sector_economico_4,9403,Seguridad social
+sector_economico_4,9900,Servicios de organizaciones internacionales y otros organismos extraterritoriales

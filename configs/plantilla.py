@@ -55,6 +55,15 @@ ETIQUETAS = None
 AGREGAR_POR = ["fecha", "sector_economico_4", "cve_entidad", "sexo"]
 METRICAS_PANEL = ["asegurados", "ta", "tpu", "teu", "tec", "tpc", "masa_sal_ta", "masa_sal_tpu"]
 
+# PANEL DE OCUPADOS (panel_ocupados.py): fecha x clave, sumando PANEL_METRICA.
+# PANEL_CLAVE: "sector_economico_1", "sector_economico_2", "sector_economico_4",
+#              "grupo" (si hay ETIQUETAS), "cve_entidad", etc.
+# PANEL_POR:   desagregaciones extra, p. ej. ["cve_entidad"] o ["sexo"]; [] = total nacional
+# PANEL_METRICA: "ta" (puestos de trabajo afiliados) o "asegurados", "tpu", "teu", ...
+PANEL_CLAVE = "sector_economico_4"
+PANEL_POR = []
+PANEL_METRICA = "ta"
+
 # Descarga
 N_HILOS = 4                       # descargas simultáneas
 TIMEOUT_SIN_DATOS = 60            # seg sin recibir nada antes de cortar
