@@ -39,11 +39,42 @@ METRICAS = ["asegurados", "no_trabajadores", "ta", "teu", "tec", "tpu", "tpc",
             "ta_sal", "teu_sal", "tec_sal", "tpu_sal", "tpc_sal",
             "masa_sal_ta", "masa_sal_teu", "masa_sal_tec", "masa_sal_tpu", "masa_sal_tpc"]
 
+# Parámetro de filtro en la configuración -> columna del ASG
+PARAMETROS_FILTRO = {
+    "SECTOR_1": "sector_economico_1",      # división (1 posición)
+    "SECTOR_2": "sector_economico_2",      # grupo (2 posiciones)
+    "SECTOR_4": "sector_economico_4",      # fracción (4 posiciones)
+    "ENTIDADES": "cve_entidad",
+    "MUNICIPIOS": "cve_municipio",
+    "DELEGACIONES": "cve_delegacion",
+    "SUBDELEGACIONES": "cve_subdelegacion",
+    "SEXO": "sexo",
+    "TAMANO_PATRON": "tamano_patron",
+    "RANGO_EDAD": "rango_edad",
+    "RANGO_SALARIAL": "rango_salarial",
+    "RANGO_UMA": "rango_uma",
+    "PLATAFORMA_DIGITAL": "ptpd",
+}
+# Nombres cortos aceptados donde se pide una columna (ETIQUETAS, AGREGAR_POR, PANEL_*)
+ALIAS_COLUMNA = {**{k.lower(): v for k, v in PARAMETROS_FILTRO.items()},
+                 "fracciones": "sector_economico_4", "entidad": "cve_entidad",
+                 "municipio": "cve_municipio"}
+
+
+def columna(nombre):
+    """'SECTOR_4', 'sector_4' o 'sector_economico_4' -> 'sector_economico_4'."""
+    return ALIAS_COLUMNA.get(str(nombre).strip().lower(), nombre)
+
+
 DEFAULTS = dict(
     NOMBRE=None,
     FECHA_INI=date(2018, 1, 1),
     FECHA_FIN=None,                 # None = último mes cerrado
-    FILTROS={},
+    # filtros (False = no filtrar); ver PARAMETROS_FILTRO
+    **{k: False for k in [
+        "SECTOR_1", "SECTOR_2", "SECTOR_4", "ENTIDADES", "MUNICIPIOS", "DELEGACIONES",
+        "SUBDELEGACIONES", "SEXO", "TAMANO_PATRON", "RANGO_EDAD", "RANGO_SALARIAL",
+        "RANGO_UMA", "PLATAFORMA_DIGITAL"]},
     ETIQUETAS=None,
     AGREGAR_POR=["fecha"],
     METRICAS_PANEL=["asegurados", "ta", "tpu", "teu", "masa_sal_ta"],
@@ -70,24 +101,47 @@ def cargar_config(ruta):
     if not cfg["NOMBRE"]:
         sys.exit("La configuración necesita NOMBRE (se usa para nombrar carpetas y archivos).")
 
+    if hasattr(mod, "FILTROS"):
+        sys.exit("FILTROS ya no se usa: pon cada filtro como variable (SECTOR_4 = [...], "
+                 "ENTIDADES = False, etc.). Ver configs/plantilla.py.")
+    if hasattr(mod, "FRACCIONES"):           # alias cómodo de SECTOR_4
+        if getattr(mod, "SECTOR_4", False) is not False:
+            sys.exit("Usa FRACCIONES o SECTOR_4, no ambos.")
+        cfg["SECTOR_4"] = mod.FRACCIONES
+
     filtros = {}
-    for col, valores in (cfg["FILTROS"] or {}).items():
-        if col not in DIMENSIONES:
-            sys.exit(f"FILTROS: '{col}' no es una columna del ASG. Opciones: {DIMENSIONES}")
+    for param, col in PARAMETROS_FILTRO.items():
+        valores = cfg[param]
         if valores is False or valores is None:
             continue
+        if valores is True:
+            sys.exit(f"{param} = True no significa nada; usa False o un vector de valores.")
         if isinstance(valores, (int, str)):
             valores = [valores]
         valores = list(valores)
         if not valores:
-            sys.exit(f"FILTROS: '{col}' tiene una lista vacía; usa False para no filtrar.")
+            sys.exit(f"{param} es un vector vacío; usa False para no filtrar.")
         filtros[col] = valores
     cfg["FILTROS"] = filtros
 
+    # Coherencia entre niveles: cada fracción debe caer en algún grupo pedido
+    s2, s4 = filtros.get("sector_economico_2"), filtros.get("sector_economico_4")
+    if s2 and s4:
+        fuera = [f for f in s4 if int(str(f).zfill(4)[:2]) not in {int(g) for g in s2}]
+        if fuera:
+            print(f"AVISO: estas fracciones no están en SECTOR_2 {s2} y quedarán fuera: {fuera}")
+
+    # Nombres cortos -> columnas
+    cfg["AGREGAR_POR"] = [columna(c) for c in cfg["AGREGAR_POR"]]
+    cfg["PANEL_CLAVE"] = columna(cfg["PANEL_CLAVE"])
+    cfg["PANEL_POR"] = [columna(c) for c in cfg["PANEL_POR"]]
+
     et = cfg["ETIQUETAS"]
     if et:
-        if et.get("nivel") not in DIMENSIONES or not isinstance(et.get("grupos"), dict):
-            sys.exit('ETIQUETAS debe ser {"nivel": <columna>, "grupos": {"nombre": [valores]}} o None.')
+        et = dict(et, nivel=columna(et.get("nivel")))
+        if et["nivel"] not in DIMENSIONES or not isinstance(et.get("grupos"), dict):
+            sys.exit('ETIQUETAS debe ser {"nivel": "SECTOR_4", "grupos": {"nombre": [valores]}} o None.')
+        cfg["ETIQUETAS"] = et
     return cfg
 
 

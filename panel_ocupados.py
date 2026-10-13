@@ -3,7 +3,7 @@
 #
 # Uso (después de correr extraer_asg.py con la misma configuración):
 #   python panel_ocupados.py configs/autopartes.py
-#   python panel_ocupados.py configs/autopartes.py --clave sector_economico_2 --por cve_entidad
+#   python panel_ocupados.py configs/autopartes.py --clave sector_2 --por entidades
 #   python panel_ocupados.py configs/autopartes.py --metrica asegurados
 #
 # "Ocupados" = puestos de trabajo afiliados (ta) por default, la cifra de empleo
@@ -24,7 +24,7 @@ import polars as pl
 
 RAIZ = Path(__file__).resolve().parent
 sys.path.insert(0, str(RAIZ))
-from extraer_asg import cargar_config  # noqa: E402
+from extraer_asg import cargar_config, columna  # noqa: E402
 CAT_ACTIVIDADES = RAIZ / "catalogos" / "actividades_imss.csv"
 CAT_ENTIDADES = RAIZ / "catalogos" / "entidades_imss.csv"
 
@@ -51,8 +51,8 @@ def main():
     args = ap.parse_args()
 
     cfg = cargar_config(args.config)
-    clave = args.clave or cfg["PANEL_CLAVE"]
-    por = args.por if args.por is not None else list(cfg["PANEL_POR"])
+    clave = columna(args.clave) if args.clave else cfg["PANEL_CLAVE"]
+    por = [columna(c) for c in args.por] if args.por is not None else list(cfg["PANEL_POR"])
     metrica = args.metrica or cfg["PANEL_METRICA"]
 
     carpeta = Path(cfg["CARPETA_SALIDA"]).expanduser()

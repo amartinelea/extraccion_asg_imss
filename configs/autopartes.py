@@ -9,30 +9,27 @@ CARPETA_SALIDA = "data"
 FECHA_INI = date(2018, 1, 1)
 FECHA_FIN = None
 
-FILTROS = {
-    "sector_economico_1": False,
-    "sector_economico_2": False,
-    "sector_economico_4": [3802, 3803, 3809, 3810, 3804],
-    "cve_entidad": False,
-    "sexo": False,
-}
+# Actividad económica: vector de claves o False para no filtrar ese nivel
+SECTOR_1 = False
+SECTOR_2 = False
+SECTOR_4 = [3802, 3803, 3809, 3810, 3804]
+
+# Otros filtros
+ENTIDADES = False
+SEXO = False
 
 ETIQUETAS = {
-    "nivel": "sector_economico_4",
+    "nivel": "SECTOR_4",
     "grupos": {
         "autopartes": [3802, 3803, 3809, 3810],
         "sistemas_electricos": [3804],
     },
 }
 
-AGREGAR_POR = ["fecha", "grupo", "sector_economico_4", "cve_entidad", "sexo"]
+AGREGAR_POR = ["fecha", "grupo", "SECTOR_4", "ENTIDADES", "SEXO"]
 METRICAS_PANEL = ["asegurados", "ta", "teu", "tec", "tpu", "tpc", "masa_sal_ta", "masa_sal_tpu"]
 
-# PANEL DE OCUPADOS (panel_ocupados.py): fecha x clave, sumando PANEL_METRICA.
-# PANEL_CLAVE: "sector_economico_1", "sector_economico_2", "sector_economico_4",
-#              "grupo" (si hay ETIQUETAS), "cve_entidad", etc.
-# PANEL_POR:   desagregaciones extra, p. ej. ["cve_entidad"] o ["sexo"]; [] = total nacional
-# PANEL_METRICA: "ta" (puestos de trabajo afiliados) o "asegurados", "tpu", "teu", ...
-PANEL_CLAVE = "sector_economico_4"
+# Panel de ocupados (panel_ocupados.py)
+PANEL_CLAVE = "SECTOR_4"
 PANEL_POR = []
 PANEL_METRICA = "ta"

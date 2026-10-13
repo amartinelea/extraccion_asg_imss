@@ -1,9 +1,11 @@
 # ==============================================================================
-# PLANTILLA de configuración para extraer_asg.py
+# PLANTILLA de configuración para extraer_asg.py y panel_ocupados.py
 # Copia este archivo (p. ej. configs/mi_sector.py), cambia lo que necesites y corre:
 #     python extraer_asg.py configs/mi_sector.py
+#     python panel_ocupados.py configs/mi_sector.py
 #
 # Códigos de actividad, entidades, rangos, etc.: catalogos/diccionario_IMSS.xlsx
+# (o catalogos/actividades_imss.csv y catalogos/entidades_imss.csv)
 # ==============================================================================
 from datetime import date
 
@@ -18,49 +20,58 @@ CARPETA_SALIDA = "data"           # puede ser absoluta, p. ej. "~/Desktop/ATDT/m
 FECHA_INI = date(2018, 1, 1)
 FECHA_FIN = None                  # None = último mes cerrado; o p. ej. date(2025, 12, 1)
 
-# FILTROS
-# False = no filtrar esa variable. Lista = quedarse solo con esos valores.
-# Entre variables se combinan con Y; dentro de una lista es O.
-FILTROS = {
-    # Actividad económica (catálogo IMSS; hojas "sector 1", "sector 2", "sector 4")
-    "sector_economico_1": False,  # división, 1 posición: 0..9 (p. ej. [3] manufactura 3)
-    "sector_economico_2": False,  # grupo, 2 posiciones (p. ej. [38] equipo de transporte)
-    "sector_economico_4": False,  # fracción, 4 posiciones (p. ej. [3803, 3809])
+# ------------------------------------------------------------------------------
+# FILTROS: cada uno es un vector de claves, o False para "apagarlo" (no filtrar).
+# Entre filtros se combinan con Y; dentro de un vector es O.
+# ------------------------------------------------------------------------------
 
-    # Geografía
-    "cve_entidad": False,         # p. ej. [11, 14] Guanajuato y Jalisco (catálogo IMSS)
-    "cve_municipio": False,       # alfanumérico, p. ej. ["A01", "H83"]
-    "cve_delegacion": False,
-    "cve_subdelegacion": False,
+# Actividad económica (catálogo IMSS: división > grupo > fracción; no hay nivel de 3)
+SECTOR_1 = False                  # división, 1 posición: 0..9        p. ej. [3]
+SECTOR_2 = False                  # grupo, 2 posiciones               p. ej. [38]
+SECTOR_4 = False                  # fracción, 4 posiciones            p. ej. [3803, 3809]
+# (FRACCIONES = [...] también funciona como sinónimo de SECTOR_4)
 
-    # Características
-    "sexo": False,                # 1 hombre, 2 mujer
-    "tamano_patron": False,       # ["S1", ..., "S7"]
-    "rango_edad": False,          # ["E1", ..., "E14"]
-    "rango_salarial": False,      # ["W1", ...] en salarios mínimos
-    "rango_uma": False,           # ["W1", ...] en UMAs (desde feb-2017)
-    "ptpd": False,                # 1 = trabajador de plataforma digital
-}
+# Geografía
+ENTIDADES = False                 # p. ej. [11, 14] Guanajuato y Jalisco
+MUNICIPIOS = False                # alfanumérico IMSS, p. ej. ["A01", "H83"]
+DELEGACIONES = False
+SUBDELEGACIONES = False
 
-# ETIQUETAS (opcional): crea una columna "grupo" agrupando valores de una variable.
+# Características del puesto y del trabajador
+SEXO = False                      # 1 hombre, 2 mujer
+TAMANO_PATRON = False             # ["S1", ..., "S7"]
+RANGO_EDAD = False                # ["E1", ..., "E14"]
+RANGO_SALARIAL = False            # ["W1", ...] en salarios mínimos
+RANGO_UMA = False                 # ["W1", ...] en UMAs (desde feb-2017)
+PLATAFORMA_DIGITAL = False        # [1] = trabajadores de plataformas digitales
+
+# ------------------------------------------------------------------------------
+# ETIQUETAS (opcional): crea una columna "grupo" agrupando claves de un nivel.
 # Lo que no caiga en ningún grupo queda como "otros". None = no crear la columna.
+# ------------------------------------------------------------------------------
 ETIQUETAS = None
 # ETIQUETAS = {
-#     "nivel": "sector_economico_4",
+#     "nivel": "SECTOR_4",
 #     "grupos": {"grupo_a": [3803, 3809], "grupo_b": [3804]},
 # }
 
-# PANEL: variables por las que se agrega y métricas que se suman.
-# Si incluyes "masa_sal_ta" y "ta", agrega salario_diario_prom = masa_sal_ta / ta.
-AGREGAR_POR = ["fecha", "sector_economico_4", "cve_entidad", "sexo"]
+# ------------------------------------------------------------------------------
+# PANEL AGREGADO (asg_{NOMBRE}_mensual.parquet)
+# Se puede usar el nombre del parámetro ("SECTOR_4", "ENTIDADES") o la columna del
+# ASG ("sector_economico_4", "cve_entidad"). Si incluyes "masa_sal_ta" y "ta",
+# agrega salario_diario_prom = masa_sal_ta / ta.
+# ------------------------------------------------------------------------------
+AGREGAR_POR = ["fecha", "SECTOR_4", "ENTIDADES", "SEXO"]
 METRICAS_PANEL = ["asegurados", "ta", "tpu", "teu", "tec", "tpc", "masa_sal_ta", "masa_sal_tpu"]
 
+# ------------------------------------------------------------------------------
 # PANEL DE OCUPADOS (panel_ocupados.py): fecha x clave, sumando PANEL_METRICA.
-# PANEL_CLAVE: "sector_economico_1", "sector_economico_2", "sector_economico_4",
-#              "grupo" (si hay ETIQUETAS), "cve_entidad", etc.
-# PANEL_POR:   desagregaciones extra, p. ej. ["cve_entidad"] o ["sexo"]; [] = total nacional
+# PANEL_CLAVE:   "SECTOR_1", "SECTOR_2", "SECTOR_4", "grupo" (si hay ETIQUETAS),
+#                "ENTIDADES", etc.
+# PANEL_POR:     desagregaciones extra, p. ej. ["ENTIDADES"] o ["SEXO"]; [] = nacional
 # PANEL_METRICA: "ta" (puestos de trabajo afiliados) o "asegurados", "tpu", "teu", ...
-PANEL_CLAVE = "sector_economico_4"
+# ------------------------------------------------------------------------------
+PANEL_CLAVE = "SECTOR_4"
 PANEL_POR = []
 PANEL_METRICA = "ta"
 

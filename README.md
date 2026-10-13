@@ -26,20 +26,33 @@ Todo vive en el archivo de `configs/`:
 | `NOMBRE` | Nombre de la extracción; define carpetas y archivos de salida |
 | `CARPETA_SALIDA` | Dónde se guarda todo (relativa o absoluta) |
 | `FECHA_INI`, `FECHA_FIN` | Periodo; `FECHA_FIN = None` es el último mes cerrado |
-| `FILTROS` | Un vector por variable; `False` no filtra |
-| `ETIQUETAS` | Opcional; crea la columna `grupo` agrupando valores |
+| `SECTOR_1`, `SECTOR_2`, `SECTOR_4` | Actividad económica: vector de claves o `False` |
+| `ENTIDADES`, `MUNICIPIOS`, `SEXO`, `TAMANO_PATRON`, `RANGO_EDAD`, … | Otros filtros: vector o `False` |
+| `ETIQUETAS` | Opcional; crea la columna `grupo` agrupando claves |
 | `AGREGAR_POR`, `METRICAS_PANEL` | Cómo se arma el panel agregado |
+| `PANEL_CLAVE`, `PANEL_POR`, `PANEL_METRICA` | Panel de ocupados |
 | `N_HILOS`, `TIMEOUT_SIN_DATOS`, `MAX_SEG_INTENTO`, `REINTENTOS` | Descarga |
 
-**Filtros:** entre variables se combinan con Y; dentro de un vector es O. Por ejemplo,
-`sector_economico_2: [38]` con `cve_entidad: [11, 14]` da el grupo 38 en Guanajuato
-o Jalisco.
+**Filtros:** cada uno es un vector de claves, o `False` para apagarlo. Entre filtros se
+combinan con Y; dentro de un vector es O.
 
-Niveles de actividad del catálogo IMSS:
+```python
+SECTOR_1 = False
+SECTOR_2 = False
+SECTOR_4 = [3802, 3803, 3809, 3810, 3804]   # o FRACCIONES = [...]
+ENTIDADES = [11, 14]                        # Guanajuato o Jalisco
+```
 
-* `sector_economico_1`: división (1 posición)
-* `sector_economico_2`: grupo (2 posiciones, p. ej. 38)
-* `sector_economico_4`: fracción (4 posiciones, p. ej. 3803)
+Niveles de actividad del catálogo IMSS (no tiene nivel de 3 posiciones):
+
+* `SECTOR_1`: división (1 posición)
+* `SECTOR_2`: grupo (2 posiciones, p. ej. 38)
+* `SECTOR_4`: fracción (4 posiciones, p. ej. 3803)
+
+Si pones `SECTOR_2` y `SECTOR_4` a la vez, el script avisa qué fracciones no caen en
+los grupos pedidos (quedarían fuera). En `ETIQUETAS`, `AGREGAR_POR` y `PANEL_*` puedes
+usar el nombre del parámetro (`"SECTOR_4"`, `"ENTIDADES"`) o la columna del ASG
+(`"sector_economico_4"`, `"cve_entidad"`).
 
 Los códigos de todas las variables están en `catalogos/diccionario_IMSS.xlsx`. Las
 descripciones de actividades y entidades también están en CSV
@@ -63,13 +76,13 @@ aparece con 0.
 
 * Por default, "ocupados" es `ta`, los puestos de trabajo afiliados (la cifra de
   empleo formal que publica el IMSS). Se cambia con `PANEL_METRICA` o `--metrica`.
-* La clave se define con `PANEL_CLAVE` o `--clave`: `sector_economico_1`, `_2`, `_4`,
-  `grupo` (si hay `ETIQUETAS`), `cve_entidad`, etc.
-* Desagregaciones extra con `PANEL_POR` o `--por` (p. ej. `--por cve_entidad sexo`).
+* La clave se define con `PANEL_CLAVE` o `--clave`: `SECTOR_1`, `SECTOR_2`, `SECTOR_4`,
+  `grupo` (si hay `ETIQUETAS`), `ENTIDADES`, etc.
+* Desagregaciones extra con `PANEL_POR` o `--por` (p. ej. `--por ENTIDADES SEXO`).
 
 ```bash
 python panel_ocupados.py configs/autopartes.py --clave grupo
-python panel_ocupados.py configs/autopartes.py --clave sector_economico_2 --por cve_entidad
+python panel_ocupados.py configs/autopartes.py --clave SECTOR_2 --por ENTIDADES
 ```
 
 Salidas en `CARPETA_SALIDA`:
