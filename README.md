@@ -101,7 +101,7 @@ asg_{NOMBRE}_ocupados_{clave}_ancho.csv  una columna por clave
 * El servidor del IMSS a veces se cuelga o manda datos a cuentagotas: si pasa
   `TIMEOUT_SIN_DATOS` sin datos o un intento dura más de `MAX_SEG_INTENTO`, lo corta y
   reintenta. Un error 404 no se reintenta (el mes no está publicado con ese nombre).
-* `_filtros.json` guarda con qué filtros se armó el caché. Si cambias `FILTROS` con el
+* `_filtros.json` guarda con qué filtros se armó el caché. Si cambias algún filtro con el
   mismo `NOMBRE`, el script se detiene para no mezclar meses filtrados distinto.
 
 ## Notas
